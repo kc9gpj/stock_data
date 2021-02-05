@@ -122,18 +122,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Nairobi'
-CELERY_TASK_TIME_LIMIT = 30 * 60
-
-# jobs queue
-job_queue_namespace = 'JOB_QUEUE'
-job_queue_broker_url = 'redis://'
-job_queue_result_backend = 'redis://'
-job_queue_create_missing_queues = True
-job_queue_task_default_queue = 'stock_data'
+BACKGROUND_TASK_RUN_ASYNC = True
