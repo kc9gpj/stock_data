@@ -10,6 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         tickers = Tickers.objects.all()
+        # Tickers.objects.all().delete()
         with open('reddit/tickers/amex.csv', 'r') as csv_file:
             reader = csv.reader(csv_file)
 

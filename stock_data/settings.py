@@ -28,18 +28,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CRONJOBS = [
+    ('0 8 * * *', 'django.core.management.reddit', ['clearsessions']),
+    ('0 20 * * *', 'django.core.management.reddit', ['clearsessions']),
+]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'background_task',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reddit'
+    'reddit',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -121,5 +125,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-BACKGROUND_TASK_RUN_ASYNC = True
