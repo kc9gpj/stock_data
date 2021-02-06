@@ -9,8 +9,9 @@ class Tickers(models.Model):
 
 class TickerHits(models.Model):
     tickers = models.ForeignKey(Tickers, related_name='ticker_hits', on_delete=models.CASCADE)
+    version = models.IntegerField(default=1)
     hits = models.IntegerField(default=0)
-    created_at = models.DateTimeField('creation date')
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
 
 class Version(models.Model):

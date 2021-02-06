@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reddit',
     'django_crontab',
+    'hitcount',
 ]
 
 MIDDLEWARE = [

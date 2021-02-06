@@ -1,0 +1,15 @@
+<table style="width:100%">
+  <tr>
+    <th>Symbol</th>
+    <th>Hits</th> 
+  </tr>
+    {% for hits in ticker_hits %}
+  <tr>
+    <td>{{ hits.tickers.symbol}}</td>
+  </tr>
+  <tr>
+    <td>{{ hits.hits }}</td>
+  </tr>
+  {% endfor%}
+</table>
+
