@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reddit',
     'django_crontab',
-    'hitcount',
+    'layouts',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [

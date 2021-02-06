@@ -10,18 +10,17 @@ from django.urls import reverse
 from django.db.models import Q
 from django.http import HttpResponse
 
-from reddit.models import Tickers, TickerHits
+from reddit.models import Tickers, TickerHits, Version  
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
 def reddit(request):
-    # ticker_hits = TickerHits.objects.filter(created_at__lt=days_ago(1)).all().order_by("tickers__symbol")
-    ticker_hits = TickerHits.objects.all().order_by("-hits")
-    for hits in ticker_hits:
-        print(hits.hits)
-        print(hits.tickers.symbol)
+    version = Version.objects.all().first()
+    prev_version = version.version - 1
+    print(prev_version)
+    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:20]
     context = {
         'ticker_hits': ticker_hits
     }

@@ -1,15 +1,20 @@
-<table style="width:100%">
+{% extends "layout/base.html" %}
+{% block content %}
+<table class="table table-striped" style="width:50%, text-align: center">
   <tr>
     <th>Symbol</th>
-    <th>Hits</th> 
+    <th>Full Name</th>
+    <th>Hits (Past 12 Hrs)</th> 
   </tr>
     {% for hits in ticker_hits %}
   <tr>
     <td>{{ hits.tickers.symbol}}</td>
-  </tr>
-  <tr>
+    <td>{{ hits.tickers.full_name}}</td>
     <td>{{ hits.hits }}</td>
   </tr>
   {% endfor%}
 </table>
+
+{% endblock %}
+
 

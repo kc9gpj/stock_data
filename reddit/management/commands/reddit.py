@@ -27,27 +27,26 @@ class Command(BaseCommand):
             print(e)
 
         tickers = Tickers.objects.all()
-        # body = 'i like this. GME. AMC BB GME GME i like this'
         body = body.replace('.', ' ').replace(',', ' ')
-        # version, created = Version.objects.get_or_create(
-        #     id=1,
-        #     version=1
-        # )
-        # print(version.version)
-        TickerHits.objects.all().delete()
+        version, created = Version.objects.get_or_create(
+            id=1,
+        )
+        version.version += 1
+        version.save()
+        excluded_tickers = ['DD', 'EV', 'CEO', 'RH', 'AI', 'IMO', 'A']
         for word in body.split():
             for ticker in tickers:
-                if word == ticker.symbol or word == '${}'.format(ticker.symbol):
+                if ticker in excluded_tickers:
+                    continue
+                elif word == ticker.symbol or word == '${}'.format(ticker.symbol):
                     print(ticker.symbol)
 
                     hits, created = TickerHits.objects.get_or_create(
                         tickers_id=ticker.id,
-                        version=1,
+                        version=version.version,
                     )
                     print(hits.id)
                     TickerHits.objects.filter(id=hits.id).update(hits=F("hits") + 1)
                     h = TickerHits.objects.filter(id=hits.id).first()
                     print(h.hits)
-                    # P.objects.filter(username="John Smith").update(accvalue=F("accvalue") + 50)
-        # Version.objects.filter(id=version.id).update(version=F("version") + 1)
         self.stdout.write(self.style.SUCCESS('Successfully exexuted reddit'))

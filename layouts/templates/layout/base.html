@@ -1,0 +1,65 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="initial-scale=0.1">
+
+  <title>{% block meta_title %}Home{% endblock %}</title>
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  
+  <link rel="stylesheet" href="/static/css/base.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  {% block head %}{% endblock %}
+</head>
+  <body class="{% block body_class %}{% endblock %}">
+      <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+        <div class="container">
+        <a class="navbar-brand" href="/"><img class="logo" src="/static/images/powell.png" alt="stocks" /></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="/reddit/hits/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">Reddit Trends</span></a>
+              </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container menu-margin">
+      {% block body %}
+      {% endblock %}
+        <div class="content">
+          {% bootstrap_messages %}
+          {% block content %}
+          {% endblock %}
+        </div>
+    </div><!-- /.container -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2/dist/bootstrap-confirmation.min.js"></script>
+  <script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip().addClass('tt');
+    $('.data-table').DataTable({
+        paging: false,
+        order: []
+    });
+    $('[data-toggle=confirmation]').confirmation({
+      rootSelector: '[data-toggle=confirmation]',
+      // other options
+    });
+  })
+  </script>
+  {% block scripts %}
+  {% endblock %}
+  </body>
+</html>
