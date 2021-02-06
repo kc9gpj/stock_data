@@ -1,58 +1,52 @@
 import praw
-import pprint
 
 from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
 
-from reddit.models import TickerHits, Tickers
+from reddit.models import TickerHits, Tickers, Version
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        reddit = praw.Reddit(client_id=, client_secret=', user_agent='praw')
-        investing_posts = reddit.subreddit('investing').hot(limit=50)
-        stocks_posts = reddit.subreddit('stocks').hot(limit=50)
-        stock_market_posts = reddit.subreddit('StockMarket').hot(limit=50)
-        try:
-            body = ''
-            for post in investing_posts:
-                submission = reddit.submission(id=post)
-                body += submission.title
-                for top_level_comment in submission.comments:
-                    print(top_level_comment.body)
-                    body += top_level_comment.body
-
-            for post in stocks_posts:
-                submission = reddit.submission(id=post)
-                body += submission.title
-                for top_level_comment in submission.comments:
-                    print(top_level_comment.body)
-                    body += top_level_comment.body
-            
-            for post in stock_market_posts:
-                submission = reddit.submission(id=post)
-                body += submission.title
-                for top_level_comment in submission.comments:
-                    print(top_level_comment.body)
-                    body += top_level_comment.body
-
-            print(body)
-                    
-        except Exception as e:
-            print(e)
+        reddit = praw.Reddit(client_id='', client_secret='', user_agent='praw')
+        subreddits = ['investing', 'stocks', 'StockMarket']
+        # try:
+        #     body = ''
+        #     for sub in subreddits:
+        #         posts = reddit.subreddit(sub).hot(limit=50)
+        #         for post in posts:
+        #             submission = reddit.submission(id=post)
+        #             body += ' {} '.format(submission.title)
+        #             submission.comments.replace_more(limit=0)
+        #             for top_level_comment in submission.comments:
+        #                 body += ' {} '.format(top_level_comment.body)
+        #     print(body)
+        # except Exception as e:
+        #     print(e)
 
         tickers = Tickers.objects.all()
+        body = 'i like this. GME AMC BB i like this'
+        body = body.replace('.', ' ').replace(',', ' ')
+        body = body.lower()
+        # version, created = Version.objects.get_or_create(
+        #     id=1,
+        #     version=1
+        # )
+        # print(version)
+        # print(created)
+        #     v.version += 1
+        #     v.save()
         for ticker in tickers:
-            if ticker.symbol in body:
+            if ' {} '.format(ticker.symbol.lower()) in body or ' ${} '.format(ticker.symbol.lower()) in body:
                 print(ticker.symbol)
-                hits = TickerHits.get_or_create(
-                    ticker_id = ticker.id,
-                    hits
+                ticker_hits, created = TickerHits.objects.get_or_create(
+                    tickers_id=ticker.id,
+                    hits=0,
+                    created_at=timezone.localtime(timezone.now()),
+                    # version_id=version.id
                 )
-                print(hits)
-                hits += 1
-                hits.save()
-                print(hits)
-
+                ticker_hits.hits += 1
+                ticker_hits.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully exexuted reddit'))
