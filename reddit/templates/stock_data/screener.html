@@ -1,12 +1,43 @@
 {% extends "layout/base.html" %}
 {% block content %}
-<canvas id="myChart" width="400" height="200"></canvas>
+<body>
+<select id="input">
+  <option value="SPY">SPDR S&P 500 ETF Trust</option>
+  <option value="VTI">Vanguard Total Stock Market ETF</option>
+  <option value="AAPL">Apple</option>
+  <option value="GOOG">Google</option>
+  <option value="MSFT">Microsoft</option>
+  <option value="BRK.A">Berkshire Hathaway</option>
+  <option value="FB">Facebook</option>
+  <option value="JPM">JPMorgan</option>
+</select>
+<!-- <input id="input" placeholder="Enter a stock"></input> -->
+<button type="button" onclick="displayPrices()">Get Prices</button><br><br>
 
+<label for="spacing">Duration:</label>
+<div class="slider">
+<datalist id="steplist">
+    <option label="3" value="3">
+    <option label="6" value="6">
+    <option label="9" value="9">
+    <option label="12" value="12">
+    <option label="15" value="15">  
+    <option label="18" value="18">
+    <option label="21" value="21">
+    <option label="24" value="24">
+</datalist>
+<input onchange="displayPrices()" list="steplist" 
+           id="duration" type="range" min="3" max="24" step="3" value="12">  
+</div>
+<h2>Stock Prices</h2><div id="prices"></div>
+</body>
+<canvas id="myChart"></canvas>
 
 {% endblock %}
 
 
 {% block scripts %}
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
@@ -14,42 +45,64 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 <script>
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+displayPrices();
+function displayPrices(){
+  
+let duration = document.getElementById("duration").value;
+let name = document.getElementById("input").value;
+var xmlhttp = new XMLHttpRequest(),
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + name + '&apikey=PVY8MCGPGIBP69X4';
+
+xmlhttp.open('GET', url, true);
+xmlhttp.onload = function() {
+  // const dates = lastWeek();
+  if (this.readyState == 4 && this.status == 200) {
+    json=JSON.parse(this.responseText);
+    // document.getElementById('stock').innerHTML =
+    //   json['Meta Data']['2. Symbol'];
+    // get an array of object keys
+    let keys = Object.keys(json['Monthly Time Series']);
+    var dates = [];
+    var pricesClose = [];
+    const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+    // get prices for last no. of months
+    for (let i=0; i<duration; i++) {
+      let key = keys[i];
+      // console.log('key', key);
+      pricesClose.push(json['Monthly Time Series'][key]['4. close']);
+      dates.push(months[Number(key.slice(5, 7) - 1)] + key.slice(2, 4));
     }
-});
+    // console.log(dates);
+    // console.log(pricesClose);
+    displayChart(name, dates, pricesClose)
+  }
+};
+xmlhttp.send();
+}
+
+function displayChart(name, dates, pricesClose) {
+  let labels = dates.reverse();
+  let data = pricesClose.reverse();
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+          labels: labels,
+          datasets: [{
+              label: name,
+              borderColor: 'rgb(65,105,225)',
+              data: data,
+            lineTension: 0,
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+}
 </script>
 {% endblock %}

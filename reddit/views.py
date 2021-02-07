@@ -16,7 +16,7 @@ from reddit.models import Tickers, TickerHits, Version
 def reddit(request):
     version = Version.objects.all().first()
     prev_version = version.version - 1
-    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:10]
+    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:20]
     
     symbol = []
     hits = []
