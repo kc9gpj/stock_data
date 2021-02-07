@@ -12,17 +12,29 @@ from django.http import HttpResponse
 
 from reddit.models import Tickers, TickerHits, Version  
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
 
 def reddit(request):
     version = Version.objects.all().first()
     prev_version = version.version - 1
-    print(prev_version)
-    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:20]
+    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:10]
+    
+    symbol = []
+    hits = []
+    for i in range(version.version):
+        print(i)
+        if i == 0:
+            continue
+        highest = TickerHits.objects.filter(version=version.version).order_by("-hits").first()
+        symbol.append(str(highest.tickers.symbol))
+        hits.append(str(highest.hits))
+        if version.version - 4 == i:
+            break
+    print(symbol)
+    print(hits)
     context = {
-        'ticker_hits': ticker_hits
+        'ticker_hits': ticker_hits,
+        'symbol': symbol,
+        'hits': hits
     }
 
     return render(request, "reddit/reddit.html", context)

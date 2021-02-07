@@ -1,25 +1,11 @@
 {% extends "layout/base.html" %}
 {% block content %}
-<h2>Reddit Ticker Trends</h2>
-<table class="table table-striped" style="width:50%, text-align: center">
-  <tr>
-    <th>Symbol</th>
-    <th>Full Name</th>
-    <th>Hits (Past 12 Hrs)</th> 
-  </tr>
-    {% for hits in ticker_hits %}
-  <tr>
-    <td>{{ hits.tickers.symbol}}</td>
-    <td>{{ hits.tickers.full_name}}</td>
-    <td>{{ hits.hits }}</td>
-  </tr>
-  {% endfor%}
-</table>
-
-<canvas id="myChart" width="300" height="100"></canvas>
+<canvas id="myChart" width="400" height="200"></canvas>
 
 
 {% endblock %}
+
+
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
@@ -28,24 +14,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 <script>
-var symbol = {{symbol|safe}}
-var hits = {{hits|safe}}
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
-        labels: symbol,
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
-            label: 'Highest Ticker Per Day (Past Week)',
-            data: hits,
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -53,8 +36,7 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
         }]
@@ -71,4 +53,3 @@ var myChart = new Chart(ctx, {
 });
 </script>
 {% endblock %}
-

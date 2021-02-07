@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         reddit = praw.Reddit(client_id=keys.client_id, client_secret=keys.client_secret, user_agent=keys.user_agent)
-        subreddits = ['investing', 'stocks', 'StockMarket']
+        subreddits = ['investing', 'stocks', 'StockMarket', 'SecurityAnalysis']
         try:
             body = ''
             for sub in subreddits:
@@ -36,17 +36,16 @@ class Command(BaseCommand):
         excluded_tickers = ['DD', 'EV', 'CEO', 'RH', 'AI', 'IMO', 'A']
         for word in body.split():
             for ticker in tickers:
-                if ticker in excluded_tickers:
-                    continue
-                elif word == ticker.symbol or word == '${}'.format(ticker.symbol):
-                    print(ticker.symbol)
+                if word == ticker.symbol or word == '${}'.format(ticker.symbol):
+                    if word not in excluded_tickers:
+                        print(ticker.symbol)
 
-                    hits, created = TickerHits.objects.get_or_create(
-                        tickers_id=ticker.id,
-                        version=version.version,
-                    )
-                    print(hits.id)
-                    TickerHits.objects.filter(id=hits.id).update(hits=F("hits") + 1)
-                    h = TickerHits.objects.filter(id=hits.id).first()
-                    print(h.hits)
+                        hits, created = TickerHits.objects.get_or_create(
+                            tickers_id=ticker.id,
+                            version=version.version,
+                        )
+                        print(hits.id)
+                        TickerHits.objects.filter(id=hits.id).update(hits=F("hits") + 1)
+                        h = TickerHits.objects.filter(id=hits.id).first()
+                        print(h.hits)
         self.stdout.write(self.style.SUCCESS('Successfully exexuted reddit'))
