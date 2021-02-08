@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.db.models import F
 
-from reddit.models import TickerHits, Tickers, Version
+from trends.models import TickerHits, Tickers, Version
 import keys
 
 class Command(BaseCommand):
@@ -33,7 +33,7 @@ class Command(BaseCommand):
         )
         version.version += 1
         version.save()
-        excluded_tickers = ['DD', 'EV', 'CEO', 'RH', 'AI', 'IMO', 'A']
+        excluded_tickers = ['DD', 'EV', 'RH', 'AI', 'IMO', 'A']
         for word in body.split():
             for ticker in tickers:
                 if word == ticker.symbol or word == '${}'.format(ticker.symbol):

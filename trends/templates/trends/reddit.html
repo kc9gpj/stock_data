@@ -1,6 +1,7 @@
 {% extends "layout/base.html" %}
 {% block content %}
 <h2>Reddit Ticker Trends</h2>
+ <canvas id="myChart" width="300" height="75"></canvas>
 <table class="table table-striped" style="width:50%, text-align: center">
   <tr>
     <th>Symbol</th>
@@ -9,14 +10,12 @@
   </tr>
     {% for hits in ticker_hits %}
   <tr>
-    <td>{{ hits.tickers.symbol}}</td>
+    <td><a href="https://finviz.com/quote.ashx?t={{ hits.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ hits.tickers.symbol}}</a></td>
     <td>{{ hits.tickers.full_name}}</td>
     <td>{{ hits.hits }}</td>
   </tr>
   {% endfor%}
 </table>
-
-<canvas id="myChart" width="300" height="100"></canvas>
 
 
 {% endblock %}

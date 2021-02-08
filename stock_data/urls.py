@@ -5,6 +5,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('reddit/', include('reddit.urls')),
+    path('trends/', include('trends.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<h2>Investor Hub Ticker Trends</h2>
+<table class="table table-striped" style="width:50%, text-align: center">
+  <tr>
+    <th>Symbol</th>
+    <th>Full Name</th>
+    <th>Activity Weight (Past 12 Hrs)</th> 
+  </tr>
+    {% for weights in ticker_weights %}
+  <tr>
+    <td><a href="https://finviz.com/quote.ashx?t={{ weights.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ weights.tickers.symbol}}</a></td>
+    <td>{{ weights.tickers.full_name}}</td>
+    <td>{{ weights.weight }}</td>
+  </tr>
+  {% endfor%}
+</table>
+
+<canvas id="myChart" width="300" height="100"></canvas>
+
+
+{% endblock %}
