@@ -15,26 +15,30 @@ from trends.models import Tickers, TickerHits, Version, IHTickerWeights, IHVersi
 def reddit(request):
     version = Version.objects.all().first()
     range_version = version.version + 1
-    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:40]
+    ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:50]
     print(ticker_hits)
     symbol = []
     hits = []
+    sec_symbol = []
+    sec_hits = []
     for i in reversed(range(range_version)):
         if i == 0:
             continue
-        highest = TickerHits.objects.filter(version=i).order_by("-hits").first()
-        if not highest:
+        first_highest = TickerHits.objects.filter(version=i).order_by("-hits").first()
+        if not first_highest:
             break
-        print(highest.tickers.symbol)
-        symbol.append(str(highest.tickers.symbol))
-        hits.append(str(highest.hits))
-        if version.version - 4 == i:
-            break
+        symbol.append(str(first_highest.tickers.symbol))
+        hits.append(str(first_highest.hits))
+        sec_highest = TickerHits.objects.filter(version=i).order_by("-hits")[1:2].first()
+        sec_symbol.append(str(sec_highest.tickers.symbol))
+        sec_hits.append(str(sec_highest.hits))
 
     context = {
         'ticker_hits': ticker_hits,
         'symbol': symbol[::-1],
-        'hits': hits[::-1]
+        'hits': hits[::-1],
+        'sec_symbol': sec_symbol[::-1],
+        'sec_hits': sec_hits[::-1]
     }
 
     return render(request, "trends/reddit.html", context)

@@ -2,11 +2,12 @@
 {% block content %}
 <h2>Reddit Ticker Trends</h2>
  <canvas id="myChart" width="300" height="75"></canvas>
+ <canvas id="mySecondChart" width="300" height="75"></canvas>
 <table class="table table-striped" style="width:50%, text-align: center">
   <tr>
     <th>Symbol</th>
     <th>Full Name</th>
-    <th>Hits (Past 12 Hrs)</th> 
+    <th>Hits (Past 12 Hrs)</th>
   </tr>
     {% for hits in ticker_hits %}
   <tr>
@@ -29,33 +30,39 @@
 <script>
 var symbol = {{symbol|safe}}
 var hits = {{hits|safe}}
+var sec_symbol = {{sec_symbol|safe}}
+var sec_hits = {{sec_hits|safe}}
+
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: symbol,
         datasets: [{
-            label: 'Highest Ticker Per Day (Past Week)',
+            label: 'Highest Tickers (Past Week)',
             data: hits,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            borderWidth: 1
+            backgroundColor: '#5EBC00',
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+var ctx = document.getElementById('mySecondChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: sec_symbol,
+        datasets: [{
+            label: 'Second Highest Tickers (Past Week)',
+            backgroundColor: "#0000ff",
+            data: sec_hits
         }]
     },
     options: {
@@ -70,4 +77,3 @@ var myChart = new Chart(ctx, {
 });
 </script>
 {% endblock %}
-

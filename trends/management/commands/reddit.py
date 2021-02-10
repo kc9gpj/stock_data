@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         reddit = praw.Reddit(client_id=keys.client_id, client_secret=keys.client_secret, user_agent=keys.user_agent)
-        subreddits = ['investing', 'stocks', 'StockMarket', 'SecurityAnalysis']
+        subreddits = ['investing', 'stocks', 'StockMarket', 'SecurityAnalysis', 'Daytrading']
         try:
             body = ''
             for sub in subreddits:
