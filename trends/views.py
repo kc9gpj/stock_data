@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.http import HttpResponse
 
-from trends.models import Tickers, TickerHits, Version, IHTickerWeights, IHVersion
+from trends.models import Tickers, TickerHits, Version, IHTickerWeights, IHVersion, Twitter
 
 
 def reddit(request):
@@ -53,3 +53,13 @@ def ihub(request):
     }
 
     return render(request, "trends/ihub.html", context)
+
+
+def twitter(request):
+    twitter_tickers = Twitter.objects.all().order_by("-created_at")[:20]
+
+    context = {
+        'twitter_tickers': twitter_tickers,
+    }
+
+    return render(request, "trends/twitter.html", context)

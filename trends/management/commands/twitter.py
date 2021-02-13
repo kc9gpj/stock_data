@@ -25,7 +25,6 @@ class Command(BaseCommand):
         }
 
         auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
-        print(auth_resp)
         access_token = auth_resp.json()['access_token']
                 
         trend_headers = {
@@ -43,8 +42,6 @@ class Command(BaseCommand):
         for data in data[0]['trends']:
             tweet_data.append(data['name'].replace('#',''))
 
-        print(tweet_data)
-        
         tickers = Tickers.objects.all()
 
         for word in tweet_data:

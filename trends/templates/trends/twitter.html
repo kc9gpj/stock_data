@@ -1,0 +1,23 @@
+{% extends "layout/base.html" %}
+{% load tz %} 
+{% block content %}
+<h2>Tickers Trending on Twitter</h2>
+<table class="table table-striped" style="width:50%, text-align: center">
+  <tr>
+    <th>Symbol</th>
+    <th>Full Name</th>
+    <th>Date</th> 
+  </tr>
+    {% for tickers in twitter_tickers %}
+  <tr>
+    <td><a href="https://finviz.com/quote.ashx?t={{ tickers.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ tickers.tickers.symbol}}</a></td>
+    <td>{{ tickers.tickers.full_name}}</td>
+    <td>{% timezone "America/Chicago" %}{{ tickers.created_at }} {% endtimezone %}</td>
+  </tr>
+  {% endfor%}
+</table>
+
+<canvas id="myChart" width="300" height="100"></canvas>
+
+
+{% endblock %}
