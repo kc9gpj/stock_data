@@ -3,15 +3,32 @@
 <body>
 <div class"container">
 <div class="row">
-<div class="col-3 col-xs-1">
-<div>{{reddit}}</div>
-<div>{{reddit_price|floatformat:2}}</div>
+<div class="col-sm-4 col-xs-12 text-center">
+<h2>Reddit: {{reddit}}</h2>
+{% if reddit_data|get_item:'Quote Price' > reddit_data|get_item:'Open' %}
+<div>Last Price: <span class="price_up">{{reddit_data|get_item:'Quote Price'}}<i class='fas fa-arrow-up'></i></span></div>
+{% else %}
+<div>Last Price: <span class="price_down">{{reddit_data|get_item:'Quote Price'}}<i class='fas fa-arrow-down'></i></span></div>
+{% endif %}
+<div>Volume: {{reddit_data|get_item:'Volume'}}</div>
 </div>
-<div class="col-3 col-xs-1">
-
+<div class="col-sm-4 col-xs-12 text-center">
+<h2>Twitter: {{twitter}}</h2>
+{% if twitter_data|get_item:'Quote Price' > twitter_data|get_item:'Open' %}
+<div>Last Price: <span class="price_up">{{twitter_data|get_item:'Quote Price'}}<i class='fas fa-arrow-up'></i></span></div>
+{% else %}
+<div>Last Price: <span class="price_down">{{twitter_data|get_item:'Quote Price'}}<i class='fas fa-arrow-down'></i></span></div>
+{% endif %}
+<div>Volume: {{twitter_data|get_item:'Volume'}}</div>
 </div>
-<div class="col-3 col-xs-1">
-
+<div class="col-sm-4 col-xs-12 text-center">
+<h2>I-Hub: {{ihub}}</h2>
+{% if ihub_data|get_item:'Quote Price' > ihub_data|get_item:'Open' %}
+<div>Last Price: <span class="price_up">{{ihub_data|get_item:'Quote Price'}}<i class='fas fa-arrow-up'></i></span></div>
+{% else %}
+<div>Last Price: <span class="price_down">{{ihub_data|get_item:'Quote Price'}}<i class='fas fa-arrow-down'></i></span></div>
+{% endif %}
+<div>Volume: {{ihub_data|get_item:'Volume'}}</div>
 </div>
 </div>
 

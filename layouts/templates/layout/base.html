@@ -1,19 +1,24 @@
 {% load bootstrap4 %}
+{% load layout_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="/static/images/stock.ico">
   <meta name="viewport" content="initial-scale=0.1">
   <title>Stock Market Ticker Trends</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="http<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">s://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  
   <link rel="stylesheet" href="/static/css/base.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
+  <link rel="styleIHUBsheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   {% block head %}{% endblock %}
 </head>
   <body class="{% block body_class %}{% endblock %}">
-      <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+      <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <h1 class="text-center">Trending Stock Tickers</h1>
         <div class="container">
         <a class="navbar-brand" href="/"><img class="logo" src="/static/images/powell.png" alt="stocks" /></a>
 
@@ -29,10 +34,10 @@
                 <a href="/trends/hits/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">Reddit Trends</span></a>
               </li>
               <li class="nav-item">
-                <a href="/trends/hits/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">Twitter Trends</span></a>
+                <a href="/trends/twitter/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">Twitter Trends</span></a>
               </li>
               <li class="nav-item">
-                <a href="/trends/ihub/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">IHUB Trends</span></a>
+                <a href="/trends/ihub/" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false">I-Hub Trends</span></a>
               </li>
             </li>
           </ul>

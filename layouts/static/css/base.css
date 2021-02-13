@@ -1,3 +1,7 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .logo {
   max-width: 80px;
 }
@@ -10,4 +14,26 @@
   font-size: 20px;
   color: white;
   font-weight: bold;
+}
+
+.price_up {
+  color: green;
+}
+
+.price_down {
+  color: red;
+}
+
+h1 {
+  font-size: 15px;
+  color: white;
+}
+
+#myChart {
+  margin-top: 30px;
+}
+
+.link_logo {
+  width: 20px;
+  height: 20px;
 }

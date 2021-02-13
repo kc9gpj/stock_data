@@ -11,7 +11,18 @@
   </tr>
     {% for hits in ticker_hits %}
   <tr>
-    <td><a href="https://finviz.com/quote.ashx?t={{ hits.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ hits.tickers.symbol}}</a></td>
+    <td><div>{{ hits.tickers.symbol}}</div>
+    <div>
+    <a target="_blank" href="https://finviz.com/quote.ashx?t={{ hits.tickers.symbol}}">
+        <img alt="finviz link" src="/static/images/finviz.png"
+        width="20" height="20">
+    </a>
+    <a target="_blank" href="https://finance.yahoo.com/quote/{{ hits.tickers.symbol}}">
+        <img alt="yahoo link" src="/static/images/yahoo.ico"
+        width="20" height="20">
+    </a>
+    </div>
+    </td>
     <td>{{ hits.tickers.full_name}}</td>
     <td>{{ hits.hits }}</td>
   </tr>

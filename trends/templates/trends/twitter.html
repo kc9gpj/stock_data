@@ -10,8 +10,18 @@
   </tr>
     {% for tickers in twitter_tickers %}
   <tr>
-    <td><a href="https://finviz.com/quote.ashx?t={{ tickers.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ tickers.tickers.symbol}}</a></td>
-    <td>{{ tickers.tickers.full_name}}</td>
+    <td><div>{{ tickers.tickers.symbol}}</div>
+    <div>
+    <a target="_blank" href="https://finviz.com/quote.ashx?t={{ tickers.tickers.symbol}}">
+        <img alt="finviz link" src="/static/images/finviz.png"
+        width="20" height="20">
+    </a>
+    <a target="_blank" href="https://finance.yahoo.com/quote/{{ tickers.tickers.symbol}}">
+        <img alt="yahoo link" src="/static/images/yahoo.ico"
+        width="20" height="20">
+    </a>
+    </div>
+    </td>    <td>{{ tickers.tickers.full_name}}</td>
     <td>{% timezone "America/Chicago" %}{{ tickers.created_at }} {% endtimezone %}</td>
   </tr>
   {% endfor%}

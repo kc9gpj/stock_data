@@ -9,8 +9,18 @@
   </tr>
     {% for weights in ticker_weights %}
   <tr>
-    <td><a href="https://finviz.com/quote.ashx?t={{ weights.tickers.symbol}}&ty=c&ta=1&p=d" target="_blank">{{ weights.tickers.symbol}}</a></td>
-    <td>{{ weights.tickers.full_name}}</td>
+    <td><div>{{ weights.tickers.symbol}}</div>
+    <div>
+    <a target="_blank" href="https://finviz.com/quote.ashx?t={{ weights.tickers.symbol}}">
+        <img alt="finviz link" src="/static/images/finviz.png"
+        width="20" height="20">
+    </a>
+    <a target="_blank" href="https://finance.yahoo.com/quote/{{ weights.tickers.symbol}}">
+        <img alt="yahoo link" src="/static/images/yahoo.ico"
+        width="20" height="20">
+    </a>
+    </div>
+    </td>    <td>{{ weights.tickers.full_name}}</td>
     <td>{{ weights.weight }}</td>
   </tr>
   {% endfor%}
