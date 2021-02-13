@@ -1,37 +1,23 @@
 {% extends "layout/base.html" %}
 {% block content %}
 <body>
-<select id="input">
-  <option value="SPY">SPDR S&P 500 ETF Trust</option>
-  <option value="VTI">Vanguard Total Stock Market ETF</option>
-  <option value="AAPL">Apple</option>
-  <option value="GOOG">Google</option>
-  <option value="MSFT">Microsoft</option>
-  <option value="BRK.A">Berkshire Hathaway</option>
-  <option value="FB">Facebook</option>
-  <option value="JPM">JPMorgan</option>
-</select>
-<!-- <input id="input" placeholder="Enter a stock"></input> -->
-<button type="button" onclick="displayPrices()">Get Prices</button><br><br>
-
-<label for="spacing">Duration:</label>
-<div class="slider">
-<datalist id="steplist">
-    <option label="3" value="3">
-    <option label="6" value="6">
-    <option label="9" value="9">
-    <option label="12" value="12">
-    <option label="15" value="15">  
-    <option label="18" value="18">
-    <option label="21" value="21">
-    <option label="24" value="24">
-</datalist>
-<input onchange="displayPrices()" list="steplist" 
-           id="duration" type="range" min="3" max="24" step="3" value="12">  
+<div class"container">
+<div class="row">
+<div class="col-3 col-xs-1">
+<div>{{reddit}}</div>
+<div>{{reddit_price|floatformat:2}}</div>
 </div>
-<h2>Stock Prices</h2><div id="prices"></div>
-</body>
+<div class="col-3 col-xs-1">
+
+</div>
+<div class="col-3 col-xs-1">
+
+</div>
+</div>
+
+</div>
 <canvas id="myChart"></canvas>
+</body>
 
 {% endblock %}
 
@@ -48,8 +34,8 @@
 displayPrices();
 function displayPrices(){
   
-let duration = document.getElementById("duration").value;
-let name = document.getElementById("input").value;
+let duration = 12;
+let name = "{{reddit|safe}}";
 var xmlhttp = new XMLHttpRequest(),
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + name + '&apikey=PVY8MCGPGIBP69X4';
 
