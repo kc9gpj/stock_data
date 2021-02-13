@@ -33,11 +33,10 @@ class Command(BaseCommand):
         )
         version.version += 1
         version.save()
-        excluded_tickers = ['DD', 'EV', 'RH', 'AI', 'IMO', 'A']
         for word in body.split():
             for ticker in tickers:
                 if word == ticker.symbol or word == '${}'.format(ticker.symbol):
-                    if word not in excluded_tickers:
+                    if word not in keys.excluded_tickers:
                         print(ticker.symbol)
 
                         hits, created = TickerHits.objects.get_or_create(

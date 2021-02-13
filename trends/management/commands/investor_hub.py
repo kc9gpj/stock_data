@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
         #     break
 
-        driver_path = '/usr/lib/chromium-browser/chromedriver'
+        driver_path = '/snap/bin/chromium.chromedriver'
         options = Options()
         options.headless = True
         options.add_argument("--window-size=1920,1200")

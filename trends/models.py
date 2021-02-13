@@ -28,3 +28,10 @@ class IHTickerWeights(models.Model):
 
 class IHVersion(models.Model):
     version = models.IntegerField(default=1)
+
+
+class Twitter(models.Model):
+    tickers = models.ForeignKey(Tickers, related_name='twitter', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
