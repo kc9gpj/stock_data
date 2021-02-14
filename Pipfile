@@ -20,6 +20,7 @@ praw = "7.1.3"
 requests = "2.24.0"
 selenium = "3.141.0"
 pyyaml = "*"
+whitenoise = "5.2.0"
 
 [requires]
 python_version = "3.7"
