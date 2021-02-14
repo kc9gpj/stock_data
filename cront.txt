@@ -1,0 +1,8 @@
+0 8 * * * cd /home/david/Documents/stock_data/ && python3 manage.py reddit
+0 8 * * * cd /home/david/Documents/stock_data/ && python3 manage.py twitter
+0 8 * * * cd /home/david/Documents/stock_data/ && python3 manage.py investor_hub
+0 20 * * * cd /home/david/Documents/stock_data/ && python3 manage.py reddit
+0 20 * * * cd /home/david/Documents/stock_data/ && python3 manage.py twitter
+0 20 * * * cd /home/david/Documents/stock_data/ && python3 manage.py investor_hub
+0 9 * * * cd /home/david/Documents/stock_data/ && git add -A && git commit -m "add new data" && git push
+0 21 * * * cd /home/david/Documents/stock_data/ && git add -A && git commit -m "add new data" && git push
