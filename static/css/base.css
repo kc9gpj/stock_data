@@ -4,6 +4,7 @@ html, body {
 
 .logo {
   max-width: 80px;
+  cursor: pointer;
 }
 
 .menu-margin {
