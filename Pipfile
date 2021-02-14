@@ -22,6 +22,7 @@ requests = "2.24.0"
 selenium = "3.141.0"
 pyyaml = "*"
 whitenoise = "5.2.0"
+yahoo_fin = "0.8.6"
 
 [requires]
 python_version = "3.7"
