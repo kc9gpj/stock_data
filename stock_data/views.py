@@ -8,9 +8,6 @@ from django.http import HttpResponse
 
 from trends.models import Tickers, TickerHits, Version, IHTickerWeights, IHVersion, Twitter
 
-import keys
-
-
 
 def index(request):
 
