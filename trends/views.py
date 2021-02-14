@@ -16,7 +16,6 @@ def reddit(request):
     version = Version.objects.all().first()
     range_version = version.version + 1
     ticker_hits = TickerHits.objects.filter(version=version.version).order_by("-hits")[:50]
-    print(ticker_hits)
     symbol = []
     hits = []
     sec_symbol = []

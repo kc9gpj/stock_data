@@ -1,4 +1,5 @@
 {% extends "layout/base.html" %}
+{% load static %}
 {% block content %}
 <h2>Reddit Ticker Trends</h2>
  <canvas id="myChart" width="300" height="75"></canvas>
@@ -14,11 +15,11 @@
     <td><div>{{ hits.tickers.symbol}}</div>
     <div>
     <a target="_blank" href="https://finviz.com/quote.ashx?t={{ hits.tickers.symbol}}">
-        <img alt="finviz link" src="/static/images/finviz.png"
+        <img alt="finviz link" src="{% static "images/finviz.png" %}"
         width="20" height="20">
     </a>
     <a target="_blank" href="https://finance.yahoo.com/quote/{{ hits.tickers.symbol}}">
-        <img alt="yahoo link" src="/static/images/yahoo.ico"
+        <img alt="yahoo link" src="{% static "images/yahoo.ico" %}"
         width="20" height="20">
     </a>
     </div>

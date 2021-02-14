@@ -1,4 +1,5 @@
 {% extends "layout/base.html" %}
+{% load static %}
 {% block content %}
 <h2>Investor Hub Ticker Trends</h2>
 <table class="table table-striped" style="width:50%, text-align: center">
@@ -12,13 +13,13 @@
     <td><div>{{ weights.tickers.symbol}}</div>
     <div>
     <a target="_blank" href="https://finviz.com/quote.ashx?t={{ weights.tickers.symbol}}">
-        <img alt="finviz link" src="/static/images/finviz.png"
+        <img alt="finviz link" src="{% static "images/finviz.png" %}"
         width="20" height="20">
     </a>
     <a target="_blank" href="https://finance.yahoo.com/quote/{{ weights.tickers.symbol}}">
-        <img alt="yahoo link" src="/static/images/yahoo.ico"
+        <img alt="yahoo link" src="{% static "images/yahoo.ico" %}"
         width="20" height="20">
-    </a>
+    </a>        
     </div>
     </td>    <td>{{ weights.tickers.full_name}}</td>
     <td>{{ weights.weight }}</td>

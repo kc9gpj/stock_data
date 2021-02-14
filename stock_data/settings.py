@@ -26,11 +26,15 @@ SECRET_KEY = '8dacsrvvqf3z1!3x1vq^8!-7i@^tn1$cd8$_)-sa-g1!ks#4%)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CRONJOBS = [
     ('0 8 * * *', 'django.core.management.reddit', ['clearsessions']),
     ('0 20 * * *', 'django.core.management.reddit', ['clearsessions']),
+    ('0 8 * * *', 'django.core.management.twitter', ['clearsessions']),
+    ('0 20 * * *', 'django.core.management.twitter', ['clearsessions']),
+    ('0 8 * * *', 'django.core.management.investor_hub', ['clearsessions']),
+    ('0 20 * * *', 'django.core.management.investor_hub', ['clearsessions']),
 ]
 
 # Application definition
@@ -45,12 +49,14 @@ INSTALLED_APPS = [
     'trends',
     'django_crontab',
     'layouts',
-    'bootstrap4'
+    'bootstrap4',
+    'whitenoise',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,4 +142,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+#DataFlair #Django #Static files
 STATIC_URL = '/static/'
+#--------------------------------------------------
+STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+#-----------------------------------------------------
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+]
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),) # new
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles')) # new
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

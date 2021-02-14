@@ -48,11 +48,7 @@ class Command(BaseCommand):
             for ticker in tickers:
                 if word == ticker.symbol or word == '${}'.format(ticker.symbol):
                     if word not in keys.excluded_tickers:
-                        print(ticker.symbol)
-
                         Twitter.objects.get_or_create(
                             tickers_id=ticker.id
                         )
-
-
         self.stdout.write(self.style.SUCCESS('Successfully exexuted twitter'))

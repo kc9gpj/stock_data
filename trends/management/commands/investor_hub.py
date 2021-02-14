@@ -14,13 +14,6 @@ import keys
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        # tickers = Tickers.objects.all()
-        # for ticker in tickers:
-        #     response = requests.get('https://finance.yahoo.com/quote/FB/community?p=FB')
-        #     print(response.json())
-
-        #     break
-
         driver_path = '/snap/bin/chromium.chromedriver'
         options = Options()
         options.headless = True
@@ -42,9 +35,7 @@ class Command(BaseCommand):
             for a in soup.findAll("a", {"class": class_name}):
                 for ticker in tickers:
                     if a.getText() == ticker.symbol:
-                        print(ticker.symbol)
                         weight = class_name.replace('s', '')
-                        print(weight)
                         hits, created = IHTickerWeights.objects.get_or_create(
                             tickers_id=ticker.id,
                             version=version.version,

@@ -22,9 +22,8 @@ class Command(BaseCommand):
                     submission.comments.replace_more(limit=0)
                     for top_level_comment in submission.comments:
                         body += ' {} '.format(top_level_comment.body)
-            print(body)
         except Exception as e:
-            print(e)
+            pass
 
         tickers = Tickers.objects.all()
         body = body.replace('.', ' ').replace(',', ' ')
@@ -37,14 +36,10 @@ class Command(BaseCommand):
             for ticker in tickers:
                 if word == ticker.symbol or word == '${}'.format(ticker.symbol):
                     if word not in keys.excluded_tickers:
-                        print(ticker.symbol)
-
                         hits, created = TickerHits.objects.get_or_create(
                             tickers_id=ticker.id,
                             version=version.version,
                         )
-                        print(hits.id)
                         TickerHits.objects.filter(id=hits.id).update(hits=F("hits") + 1)
                         h = TickerHits.objects.filter(id=hits.id).first()
-                        print(h.hits)
         self.stdout.write(self.style.SUCCESS('Successfully exexuted reddit'))
