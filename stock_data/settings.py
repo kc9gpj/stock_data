@@ -28,14 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CRONJOBS = [
-    ('0 8 * * *', 'django.core.management.reddit', ['clearsessions']),
-    ('0 20 * * *', 'django.core.management.reddit', ['clearsessions']),
-    ('0 8 * * *', 'django.core.management.twitter', ['clearsessions']),
-    ('0 20 * * *', 'django.core.management.twitter', ['clearsessions']),
-    ('0 8 * * *', 'django.core.management.investor_hub', ['clearsessions']),
-    ('0 20 * * *', 'django.core.management.investor_hub', ['clearsessions']),
-]
+# CRONJOBS = [
+#     ('0 8 * * *', 'django.core.management.reddit', ['clearsessions']),
+#     ('0 20 * * *', 'django.core.management.reddit', ['clearsessions']),
+#     ('0 8 * * *', 'django.core.management.twitter', ['clearsessions']),
+#     ('0 20 * * *', 'django.core.management.twitter', ['clearsessions']),
+#     ('0 8 * * *', 'django.core.management.investor_hub', ['clearsessions']),
+#     ('0 20 * * *', 'django.core.management.investor_hub', ['clearsessions']),
+# ]
 
 # Application definition
 
