@@ -22,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret
-if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
+jobs = ['runserver', 'reddit', 'investor_hub', 'twitter']
+if (len(sys.argv) >= 2 and sys.argv[1] in jobs):
     import keys
     SECRET_KEY = keys.SECRET_KEY
     # SECURITY WARNING: don't run with debug turned on in production!
