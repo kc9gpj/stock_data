@@ -42,70 +42,32 @@
 {% block scripts %}
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 <script>
-displayPrices();
-function displayPrices(){
-  
-let duration = 8;
-let name = "{{reddit|safe}}";
-var xmlhttp = new XMLHttpRequest(),
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + name + '&apikey=PVY8MCGPGIBP69X4';
-
-xmlhttp.open('GET', url, true);
-xmlhttp.onload = function() {
-  // const dates = lastWeek();
-  if (this.readyState == 4 && this.status == 200) {
-    json=JSON.parse(this.responseText);
-    // document.getElementById('stock').innerHTML =
-    //   json['Meta Data']['2. Symbol'];
-    // get an array of object keys
-    let keys = Object.keys(json['Monthly Time Series']);
-    var dates = [];
-    var pricesClose = [];
-    const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-    // get prices for last no. of months
-    for (let i=0; i<duration; i++) {
-      let key = keys[i];
-      // console.log('key', key);
-      pricesClose.push(json['Monthly Time Series'][key]['4. close']);
-      dates.push(months[Number(key.slice(5, 7) - 1)] + key.slice(2, 4));
+{% comment %} var symbol = {{symbol|safe}} {% endcomment %}
+var data = {{open_data|safe}}
+var data_date = {{data_date|safe}}
+console.log(data)
+console.log(data_date)
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: '{{data_date}}',
+        datasets: [{
+            label: '{{reddit}}',
+            data: data,
+            backgroundColor: 'rgba(0, 0, 172, 0.3)',
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     }
-    // console.log(dates);
-    // console.log(pricesClose);
-    displayChart(name, dates, pricesClose)
-  }
-};
-xmlhttp.send();
-}
-
-function displayChart(name, dates, pricesClose) {
-  let labels = dates.reverse();
-  let data = pricesClose.reverse();
-  let ctx = document.getElementById('myChart').getContext('2d');
-  let chart = new Chart(ctx, {
-      // The type of chart we want to create
-      type: 'line',
-
-      // The data for our dataset
-      data: {
-          labels: labels,
-          datasets: [{
-              label: name,
-              borderColor: 'rgb(65,105,225)',
-              data: data,
-            lineTension: 0,
-          }]
-      },
-
-      // Configuration options go here
-      options: {}
-  });
-}
+});
 </script>
 {% endblock %}
