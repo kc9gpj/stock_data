@@ -31,22 +31,17 @@ def index(request):
     then = start_date = datetime.datetime.now() - datetime.timedelta(30)
     month_data = si.get_data(reddit, then, now)
     open_data = []
-    print(month_data)
     for data in month_data.open:
         open_data.append(data)
-
-    print(open_data)
-    print(len(open_data))
     start_dt = date(2019,1,21)
     end_dt = date(2019,2,4)
 
     data_date = []
     weekdays = [5,6]
-    for dt in daterange(now, then):
+    for dt in daterange(then, now):
         if dt.weekday() not in weekdays:
-            data_date.append(dt.strftime("%Y-%m-%d"))
-            print(dt.strftime("%Y-%m-%d"))
-    print(data_date)
+            data_date.append(dt.strftime(str("%m-%d")))
+
     context = {
         'reddit': reddit,
         'ihub': ihub,

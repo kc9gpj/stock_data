@@ -40,19 +40,19 @@
 
 
 {% block scripts %}
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+</script>
 <script>
 {% comment %} var symbol = {{symbol|safe}} {% endcomment %}
 var data = {{open_data|safe}}
 var data_date = {{data_date|safe}}
-console.log(data)
-console.log(data_date)
+
 var ctx = document.getElementById('myChart');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: '{{data_date}}',
+        labels: '....................',
         datasets: [{
             label: '{{reddit}}',
             data: data,
