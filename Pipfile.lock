@@ -476,7 +476,7 @@
                 "sha256:fecba5cabc0a4bef015516064efc8f22574488c20cb466a06184c140fa7710a1"
             ],
             "index": "pypi",
-            "version": "==0.8.6"
+            "version": "==0.8.9.1"
         },
         "zipp": {
             "hashes": [
