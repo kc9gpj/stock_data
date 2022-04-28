@@ -35,6 +35,7 @@ class Command(BaseCommand):
         for word in body.split():
             for ticker in tickers:
                 if word == ticker.symbol or word == '${}'.format(ticker.symbol):
+                    print(word)
                     if word not in keys.excluded_tickers:
                         hits, created = TickerHits.objects.get_or_create(
                             tickers_id=ticker.id,
